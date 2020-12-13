@@ -2,21 +2,27 @@ import sys
 
 from PyQt5.QtWidgets import QApplication,QLabel,QWidget # installing required widgets
 
+from layouts.hLayout import MyHLayout
+
 app = QApplication(sys.argv)
 
-window = QWidget() # create the top level window
+class MainWindow(QWidget):
 
-window.setWindowTitle("PyQT5 basics") # set window title
+    def __init__(self,layout,*args,**kwargs):
+        super().__init__(*args,**kwargs)
+        self.setWindowTitle("Layouts")
+        self.setGeometry(100,100,500,500)
+        self.setLayout(layout)
 
-window.setGeometry(100, 100, 280, 280)
+hLayout = MyHLayout()
 
-window.move(0,0) # relative to the top left corner of the parent(0,0)
+hLayout.add_widgets()
 
-helloMsg = QLabel("<h1>Helloo</h1>",parent=window)
-
-helloMsg.move(60,15)
+window = MainWindow(hLayout)
 
 window.show()
+
+
 
 if __name__ == "__main__":
     sys.exit(app.exec_())
