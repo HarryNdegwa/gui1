@@ -1,9 +1,10 @@
 import sys
 
-from PyQt5.QtWidgets import QApplication,QLabel,QWidget,QGridLayout # installing required widgets
+from PyQt5.QtWidgets import QApplication,QLabel,QWidget,QGridLayout,QMainWindow,QDialog # installing required widgets
 
 from layouts.hLayout import MyHLayout
 from layouts.vLayout import MyVLayout
+from layouts.formLayout import MyFormLayout
 
 app = QApplication(sys.argv)
 
@@ -46,8 +47,12 @@ vLayout = MyVLayout()
 
 vLayout.add_widgets()
 
+formLayout = MyFormLayout()
 
-window = MainWindow(vLayout,hLayout)
+formLayout.add_widgets()
+
+
+window = MainWindow(vLayout,formLayout)
 
 # window.add_layouts(vLayout,hLayout)
 

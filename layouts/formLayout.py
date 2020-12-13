@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QFormLayout,QLineEdit
 
-class myFormLayout(QFormLayout):
+class MyFormLayout(QFormLayout):
 
     def add_widgets(self):
         self.addRow("Name : ",QLineEdit())
