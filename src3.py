@@ -16,6 +16,7 @@ class MainWindow(QMainWindow):
     def _createMenu(self):
         self.menu = self.menuBar()
         self.menu.addMenu("&Menu")
+        self.menu.addAction("&Greeting",self.greeting)
         self.menu.addAction("&Exit",self.close)
 
     def _createToolBar(self):
@@ -28,6 +29,9 @@ class MainWindow(QMainWindow):
         statusBar = QStatusBar()
         self.setStatusBar(statusBar)
         statusBar.showMessage("I am the fucking status bar!")
+
+    def greeting(self):
+        print("Helloo World")
 
 
 if __name__ == "__main__":
