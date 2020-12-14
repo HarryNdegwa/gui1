@@ -1,6 +1,8 @@
 import sys
 
-from PyQt5.QtWidgets import QMainWindow,QApplication,QToolBar,QStatusBar,QLabel,QPushButton
+from PyQt5.QtWidgets import QMainWindow,QApplication,QToolBar,QStatusBar,QLabel,QPushButton,QWidget
+
+from layouts.centralLayout import MyCentralLayout
 
 class MainWindow(QMainWindow):
 
@@ -9,9 +11,10 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Main Window App")
         self.setGeometry(100,100,800,500)
         self._createMenu()
-        centralButton = QPushButton(text="Central Widget")
-        centralButton.clicked.connect(self.centralSlot)
-        self.setCentralWidget(centralButton)
+        centralWidget = QWidget()
+        centralLayout = MyCentralLayout()
+        centralWidget.setLayout(centralLayout)   
+        self.setCentralWidget(centralWidget)
         self._createToolBar()
         self._createStatusBar()
 
