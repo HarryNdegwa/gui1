@@ -1,6 +1,13 @@
 import sys
 
-from PyQt5.QtWidgets import QWidget,QMessageBox,QLabel,QVBoxLayout,QApplication
+from PyQt5.QtWidgets import (
+    QWidget,
+    QMessageBox,
+    QLabel,
+    QVBoxLayout,
+    QApplication,
+    QTableWidget,
+    QTableWidgetItem)
 from PyQt5.QtSql import QSqlDatabase,QSqlQuery
 
 
@@ -21,6 +28,8 @@ class MainWindow(QWidget):
         self.createContactTable()
         # self.secureInsertToContact()
         self.fetchContactRecords()
+
+        self.con.close()
 
 
     def createLayout(self):
