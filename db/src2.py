@@ -1,7 +1,8 @@
 import sys
 
-from PyQt5.QtWidgets import (QApplication,QMainWindow,QMessageBox,QTableWidgetItem,QTableWidget)
-from PyQt5.QtSql import QSqlDatabase,QSqlQuery
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import (QApplication,QMainWindow,QMessageBox,QTableWidgetItem,QTableWidget,QTableView)
+from PyQt5.QtSql import QSqlDatabase,QSqlQuery,QSqlQueryModel
 
 
 class MainWindow(QMainWindow):
@@ -74,21 +75,31 @@ class MainWindow(QMainWindow):
 
     
     def createCentralWidget(self):
-        self.view = QTableWidget()
-        self.view.setColumnCount(6)
-        self.view.setHorizontalHeaderLabels(["ID", "Name", "Job", "Email","Phone","Age"])
+        self.model = QSqlQueryModel(self)
+        self.model.setQuery("SELECT id, name, job, email,phone,age FROM employee")
+        self.model.setHeaderData(0,Qt.Horizontal,"ID")
+        self.model.setHeaderData(1,Qt.Horizontal,"Name")
+        self.model.setHeaderData(2,Qt.Horizontal,"Job")
+        self.model.setHeaderData(3,Qt.Horizontal,"Email")
+        self.model.setHeaderData(4,Qt.Horizontal,"Phone")
+        self.model.setHeaderData(5,Qt.Horizontal,"Age")
         
-        employeesData = self.fetchEmployees()
+        self.view = QTableView()
+        self.view.setModel(self.model)
+        # self.view.setColumnCount(6)
+        # self.view.setHorizontalHeaderLabels(["ID", "Name", "Job", "Email","Phone","Age"])
+        
+        # employeesData = self.fetchEmployees()
 
-        while employeesData.next():
-            rows = self.view.rowCount()
-            self.view.setRowCount(rows+1)
-            self.view.setItem(rows,0,QTableWidgetItem(str(employeesData.value(0))))
-            self.view.setItem(rows,1,QTableWidgetItem(employeesData.value(1)))
-            self.view.setItem(rows,2,QTableWidgetItem(employeesData.value(2)))
-            self.view.setItem(rows,3,QTableWidgetItem(employeesData.value(3)))
-            self.view.setItem(rows,4,QTableWidgetItem(employeesData.value(4)))
-            self.view.setItem(rows,5,QTableWidgetItem(str(employeesData.value(5))))
+        # while employeesData.next():
+        #     rows = self.view.rowCount()
+        #     self.view.setRowCount(rows+1)
+        #     self.view.setItem(rows,0,QTableWidgetItem(str(employeesData.value(0))))
+        #     self.view.setItem(rows,1,QTableWidgetItem(employeesData.value(1)))
+        #     self.view.setItem(rows,2,QTableWidgetItem(employeesData.value(2)))
+        #     self.view.setItem(rows,3,QTableWidgetItem(employeesData.value(3)))
+        #     self.view.setItem(rows,4,QTableWidgetItem(employeesData.value(4)))
+        #     self.view.setItem(rows,5,QTableWidgetItem(str(employeesData.value(5))))
         self.view.resizeColumnsToContents()
         self.setCentralWidget(self.view)
 
