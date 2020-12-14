@@ -19,6 +19,7 @@ class MainWindow(QWidget):
 
         self.setLayout(self.createLayout())
         self.createContactTable()
+        self.secureInsertToContact()
 
 
     def createLayout(self):
@@ -58,6 +59,32 @@ class MainWindow(QWidget):
 
         query = QSqlQuery()
         query.exec(queryString)
+
+    
+
+    def secureInsertToContact(self):
+        query = QSqlQuery()
+        query.prepare("""
+             INSERT INTO contacts (
+                name,
+                job,
+                email
+            )
+            VALUES (?, ?, ?)
+        """)
+
+        data = [
+            ("Joe", "Senior Web Developer", "joe@example.com"),
+            ("Lara", "Project Manager", "lara@example.com"),
+            ("David", "Data Analyst", "david@example.com"),
+            ("Jane", "Senior Python Developer", "jane@example.com"),
+        ]
+
+        for name,job,email in data:
+            query.addBindValue(name)
+            query.addBindValue(job)
+            query.addBindValue(email)
+            query.exec()
 
 
 
