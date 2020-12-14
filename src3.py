@@ -1,6 +1,6 @@
 import sys
 
-from PyQt5.QtWidgets import QMainWindow,QApplication,QToolBar,QStatusBar,QLabel
+from PyQt5.QtWidgets import QMainWindow,QApplication,QToolBar,QStatusBar,QLabel,QPushButton
 
 class MainWindow(QMainWindow):
 
@@ -9,7 +9,9 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Main Window App")
         self.setGeometry(100,100,800,500)
         self._createMenu()
-        self.setCentralWidget(QLabel(text="Central widget..."))
+        centralButton = QPushButton(text="Central Widget")
+        centralButton.clicked.connect(self.centralSlot)
+        self.setCentralWidget(centralButton)
         self._createToolBar()
         self._createStatusBar()
 
@@ -31,7 +33,10 @@ class MainWindow(QMainWindow):
         statusBar.showMessage("I am the fucking status bar!")
 
     def greeting(self):
-        print("Helloo World")
+        print(self.fontInfo())
+
+    def centralSlot(self):
+        print("Central Widget...")
 
 
 if __name__ == "__main__":
