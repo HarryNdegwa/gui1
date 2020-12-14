@@ -19,7 +19,8 @@ class MainWindow(QWidget):
 
         self.setLayout(self.createLayout())
         self.createContactTable()
-        self.secureInsertToContact()
+        # self.secureInsertToContact()
+        self.fetchContactRecords()
 
 
     def createLayout(self):
@@ -85,6 +86,15 @@ class MainWindow(QWidget):
             query.addBindValue(job)
             query.addBindValue(email)
             query.exec()
+
+    def fetchContactRecords(self):
+        query = QSqlQuery()
+        query.exec("SELECT id,name, job, email FROM contacts")
+        while query.next():
+            id,name,job,email = range(4)
+            data = f"{query.value(id)}->{query.value(name)}->{query.value(job)}->{query.value(email)}"
+            print(data)
+        query.finish()
 
 
 
