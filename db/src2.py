@@ -13,7 +13,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Database GUI App")
         self.createDbConnection()
         self.createEmployeeTable()
-        self.addTestData()
+        # self.addTestData()
         self.createCentralWidget()
 
 
@@ -72,6 +72,7 @@ class MainWindow(QMainWindow):
             query.addBindValue(phone)
             query.addBindValue(age)
             query.exec()
+        query.finish()
 
     
     def createCentralWidget(self):
